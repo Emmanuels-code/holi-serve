@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Load holidays data from the JSON file
+// We Load holidays data from the JSON file
 const holidaysFilePath = path.join(__dirname, 'holidays.json');
 let holidaysData = {};
 
@@ -22,15 +22,15 @@ fs.readFile(holidaysFilePath, 'utf-8', (err, data) => {
 // Route to get the holiday for a specific date
 app.get('/holiday', (req, res) => {
     const date = req.query.date;
-    
-    // Check if the date was provided
+
+    // Validate the date / request proper formatting
     if (!date) {
         return res.status(400).json({ error: 'Please provide a date in the format YYYY-MM-DD.' });
     }
 
     // Check if the date exists in the holidaysData
     const holiday = holidaysData[date];
-    
+
     if (holiday) {
         res.json({ date: date, holiday: holiday });
     } else {
@@ -38,7 +38,7 @@ app.get('/holiday', (req, res) => {
     }
 });
 
-// Start the server
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
